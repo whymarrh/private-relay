@@ -5,7 +5,8 @@
 To build the HAProxy image:
 
 ```bash
-docker build -t private-relay .
+export PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS='api.github.com:443'
+docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS -t private-relay
 ```
 
 To test the config:
