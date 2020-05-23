@@ -16,7 +16,7 @@ jobs:
           terraform_version: 0.12.25
       - name: Check *.tf
         run: |
-          terraform fmt -check
+          terraform fmt -check -recursive
   tests:
     name: Tests
     runs-on: ubuntu-18.04
