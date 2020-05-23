@@ -1,0 +1,7 @@
+# When executing a remote plan or apply in a CLI-driven run, an archive of the
+# configuration directory is uploaded to Terraform Cloud. This file defines
+# paths to ignore from upload—and since remote state is only used in terraform/
+# we can ignore everything but that directory.
+
+*
+!terraform/
