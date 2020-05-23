@@ -17,8 +17,6 @@ jobs:
       - name: Check *.tf
         run: |
           terraform fmt -check
-        env:
-          CI: true
   tests:
     name: Tests
     runs-on: ubuntu-18.04
@@ -44,15 +42,11 @@ jobs:
 
           PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS='httpbin.org:443' \
           docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag private-relay-httpbin .
-        env:
-          CI: true
       - name: Run images
         working-directory: proxy
         run: |
           terraform init
           terraform apply -auto-approve
-        env:
-          CI: true
       - name: Run tests
         working-directory: proxy/test/
         run: |
@@ -69,5 +63,3 @@ jobs:
         working-directory: proxy
         run: |
           terraform destroy -auto-approve
-        env:
-          CI: true
