@@ -59,7 +59,7 @@ jobs:
           yarn test
         env:
           CI: true
-      - name: Run images
+      - name: Destroy images
         working-directory: proxy
         run: |
           terraform destroy -auto-approve
