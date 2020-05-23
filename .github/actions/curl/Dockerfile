@@ -3,11 +3,11 @@
 # To test the proxy with cURL one might try:
 #
 # ```bash
-# # With the GitHub API container runnin 8080:443
+# # With the GitHub API container running 8080:443
 # curl -vvvs --header 'Host: api.github.com' "https://127.0.0.1:8080"
 # ```
 #
-# That won't work. cURL will complain that the cert doesn't match:
+# But that won't work. cURL will complain that the cert doesn't match:
 #
 # > curl: (60) SSL: no alternative certificate subject name matches target host name '127.0.0.1'
 # > More details here: https://curl.haxx.se/docs/sslcerts.html
@@ -15,7 +15,6 @@
 # > curl failed to verify the legitimacy of the server and therefore could not
 # > establish a secure connection to it. To learn more about this situation and
 # > how to fix it, please visit the web page mentioned above.
-#
 #
 # And apparently cURL doesn't have a way to validate a certificate name against
 # the `Host` header instead of the host of the URL you provide. Using Docker we
