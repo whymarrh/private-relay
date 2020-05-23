@@ -7,8 +7,18 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build Docker images
     runs-on: ubuntu-18.04
     steps:
-    - name: Checkout project
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Publish to Docker Hub
+        working-directory: proxy
+        run: |
+          docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag "${GITHUB_REPOSITORY}:${TAG}" .
+          docker login --username "$( dirname $GITHUB_REPOSITORY )" --password-stdin <<< "${DOCKER_TOKEN}"
+          docker push "${GITHUB_REPOSITORY}:${TAG}"
+        env:
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          TAG: 'httpbin'
+          PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS: 'httpbin.org:443'
