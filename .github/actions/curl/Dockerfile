@@ -30,5 +30,8 @@
 
 FROM alpine:3
 RUN apk add --no-cache \
+    gettext \
     bash \
     curl
+COPY "entrypoint.bash" "/opt/entrypoint.bash"
+ENTRYPOINT ["/opt/entrypoint.bash"]
