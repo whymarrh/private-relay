@@ -4,6 +4,21 @@ on:
     branches-ignore:
       - master
 jobs:
+  lint:
+    name: tf fmt
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.25
+      - name: Check *.tf
+        run: |
+          terraform fmt -check
+        env:
+          CI: true
   tests:
     name: Tests
     runs-on: ubuntu-18.04
