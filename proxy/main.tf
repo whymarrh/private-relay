@@ -3,12 +3,12 @@ provider "docker" {
 }
 
 resource "docker_image" "private_relay_github" {
-  name         = "private-relay-github"
+  name         = "private-relay:github"
   keep_locally = true
 }
 
 resource "docker_image" "private_relay_httpbin" {
-  name         = "private-relay-httpbin"
+  name         = "private-relay:httpbin"
   keep_locally = true
 }
 

@@ -38,10 +38,10 @@ jobs:
         working-directory: proxy
         run: |
           PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS='api.github.com:443' \
-          docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag private-relay-github .
+          docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag private-relay:github .
 
           PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS='httpbin.org:443' \
-          docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag private-relay-httpbin .
+          docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag private-relay:httpbin .
       - name: Run images
         working-directory: proxy
         run: |
