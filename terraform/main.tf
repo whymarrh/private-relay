@@ -39,6 +39,11 @@ provider "cloudflare" {
   api_key = var.cf_api_key
 }
 
+variable "private_relay_docker_image_name" {
+  description = "The publicly-accessible Docker image name to run on each server"
+  type        = string
+}
+
 variable "region_map_keys" {
   description = "The set of Cloudflare origin pool regions"
 
@@ -86,7 +91,9 @@ resource "digitalocean_droplet" "private_relay_server" {
     "21:ba:db:a6:e6:f4:8f:ac:77:c9:1a:70:f1:81:a0:73"
   ]
 
-  user_data = file("scripts/nginx")
+  user_data = templatefile("userdata.bash", {
+    docker_image_name = var.private_relay_docker_image_name
+  })
 
   backups            = false
   ipv6               = false

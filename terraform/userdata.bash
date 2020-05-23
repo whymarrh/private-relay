@@ -23,4 +23,7 @@ apt install --yes \
     docker-ce{,-cli} \
     containerd.io
 
-docker run --publish 80:80 --detach nginx:1.18
+# This comes from Terraform
+# shellcheck disable=SC2016
+IMAGE='${docker_image_name}'
+docker run --restart 'on-failure' --publish 443:443 --detach "$IMAGE"
