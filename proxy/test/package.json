@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "mocha --reporter list --ui tdd --slow 60000 index.js"
+  },
+  "devDependencies": {
+    "bent": "^7.3.1",
+    "mocha": "^7.1.2"
+  }
+}

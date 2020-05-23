@@ -1,0 +1,73 @@
+name: Test
+on:
+  push:
+    branches-ignore:
+      - master
+jobs:
+  lint:
+    name: tf fmt
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.25
+      - name: Check *.tf
+        run: |
+          terraform fmt -check
+        env:
+          CI: true
+  tests:
+    name: Tests
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Use Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.25
+      - name: Build proxy Docker images
+        working-directory: proxy
+        run: |
+          PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS='api.github.com:443' \
+          docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag private-relay-github .
+
+          PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS='httpbin.org:443' \
+          docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag private-relay-httpbin .
+        env:
+          CI: true
+      - name: Run images
+        working-directory: proxy
+        run: |
+          terraform init
+          terraform apply -auto-approve
+        env:
+          CI: true
+      - name: Run tests
+        working-directory: proxy/test/
+        run: |
+          yarn
+
+          GITHUB_API_ENDPOINT='https://api.github.com' \
+          GITHUB_API_ENDPOINT_RELAY="https://127.0.0.1:8080" \
+          HTTPBIN_ENDPOINT="https://httpbin.org" \
+          HTTPBIN_ENDPOINT_RELAY="https://127.0.0.1:9090" \
+          yarn test
+        env:
+          CI: true
+      - name: Run images
+        working-directory: proxy
+        run: |
+          terraform destroy -auto-approve
+        env:
+          CI: true
