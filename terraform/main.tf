@@ -29,8 +29,8 @@ variable "cf_lb_name" {
 }
 
 provider "digitalocean" {
-  token   = var.do_token
   version = "~> 1.18"
+  token   = var.do_token
 }
 
 provider "cloudflare" {
