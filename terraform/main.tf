@@ -55,7 +55,7 @@ variable "region_map_keys" {
   default = [
     "na",
     "eu",
-    "asia",
+    "ap",
   ]
 }
 
@@ -73,7 +73,7 @@ variable "region_map_values" {
       check_regions = ["WEU"]
     },
     {
-      # Asian region
+      # Asia-Pacific region
       do_regions    = ["sgp1"]
       check_regions = ["SEAS"]
     },
