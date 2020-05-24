@@ -48,19 +48,19 @@ jobs:
           terraform init
           terraform apply -auto-approve
       - name: Run cURL test for httpbin
-        uses: ./.github/actions/curl
-        with:
-          curl_opts: "-isSL --header 'Host: httpbin.org'"
-          url: https://httpbin.org:9090/anything
-          extra_hosts: |
-            172.17.0.1 httpbin.org
+        run: |
+          curl -isSL \
+          --fail \
+          --resolve httpbin.org:9090:127.0.0.1 \
+          --header 'Host: httpbin.org' \
+          https://httpbin.org:9090/anything
       - name: Run cURL test for GitHub API
-        uses: ./.github/actions/curl
-        with:
-          curl_opts: "-isSL --header 'Host: api.github.com'"
-          url: https://api.github.com:8080
-          extra_hosts: |
-            172.17.0.1 api.github.com
+        run: |
+          curl -isSL \
+          --fail \
+          --resolve api.github.com:8080:127.0.0.1 \
+          --header 'Host: api.github.com' \
+          https://api.github.com:8080
       - name: Run tests
         working-directory: proxy/test/
         run: |
