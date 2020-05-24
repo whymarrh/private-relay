@@ -98,6 +98,12 @@ variable "region_map_values" {
   ]
 }
 
+resource "digitalocean_floating_ip" "private_relay_server_ip" {
+  for_each = toset(flatten([for cfg in var.region_map_values : cfg.do_regions]))
+
+  region = each.key
+}
+
 resource "digitalocean_droplet" "private_relay_server" {
   for_each = toset(flatten([for cfg in var.region_map_values : cfg.do_regions]))
 
@@ -116,6 +122,13 @@ resource "digitalocean_droplet" "private_relay_server" {
   backups            = false
   ipv6               = false
   private_networking = true
+}
+
+resource "digitalocean_floating_ip_assignment" "private_relay_server_ip_assignment" {
+  for_each = toset(flatten([for cfg in var.region_map_values : cfg.do_regions]))
+
+  ip_address = digitalocean_floating_ip.private_relay_server_ip[each.key].id
+  droplet_id = digitalocean_droplet.private_relay_server[each.key].id
 }
 
 resource "cloudflare_load_balancer_monitor" "simple_tcp_monitor" {
