@@ -103,7 +103,7 @@ resource "digitalocean_droplet" "private_relay_server" {
 resource "cloudflare_load_balancer_monitor" "simple_tcp_monitor" {
   description = "Simple TCP monitor"
   type        = "tcp"
-  port        = 80
+  port        = 443
   method      = "connection_established"
   timeout     = 1
   interval    = 15
