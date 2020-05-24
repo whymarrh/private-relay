@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -o pipefail
+
+terraform fmt -recursive | while read -r changed; do git add "${changed}"; done
