@@ -156,7 +156,7 @@ resource "cloudflare_load_balancer_pool" "private_relay_server_pool" {
 
     content {
       name    = origins.value
-      address = digitalocean_droplet.private_relay_server[origins.value].ipv4_address
+      address = digitalocean_floating_ip_assignment.private_relay_server_ip_assignment[origins.value].ip_address
       weight  = 1
       enabled = true
     }
