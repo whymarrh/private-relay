@@ -64,18 +64,36 @@ variable "region_map_values" {
   default = [
     {
       # North American region
-      do_regions    = ["tor1", "sfo3"]
-      check_regions = ["WNAM"]
+      do_regions = ["tor1", "sfo3"]
+      check_regions = [
+        "WNAM", "ENAM", # North America
+        "SSAM",         # South America
+        "OC",           # Oceania
+        "WEU", "EEU",   # Europe
+        "SEAS", "NEAS", # Asia
+      ]
     },
     {
       # EU region
-      do_regions    = ["ams3", "fra1"]
-      check_regions = ["WEU"]
+      do_regions = ["ams3", "fra1"]
+      check_regions = [
+        "WNAM", "ENAM", # North America
+        "SSAM",         # South America
+        "OC",           # Oceania
+        "WEU", "EEU",   # Europe
+        "SEAS", "NEAS", # Asia
+      ]
     },
     {
       # Asia-Pacific region
-      do_regions    = ["sgp1"]
-      check_regions = ["SEAS"]
+      do_regions = ["sgp1"]
+      check_regions = [
+        "WNAM", "ENAM", # North America
+        "SSAM",         # South America
+        "OC",           # Oceania
+        "WEU", "EEU",   # Europe
+        "SEAS", "NEAS", # Asia
+      ]
     },
   ]
 }
