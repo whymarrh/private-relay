@@ -53,8 +53,8 @@ variable "region_map_keys" {
   # Cloudflare will send traffic to the next available pool - e.g. traffic
   # will always land on Pool #1 until it is marked unhealthy.
   default = [
-    "na",
     "eu",
+    "na",
     "ap",
   ]
 }
@@ -63,8 +63,8 @@ variable "region_map_values" {
   description = "The set of supported regions"
   default = [
     {
-      # North American region
-      do_regions = ["tor1", "sfo3"]
+      # EU region
+      do_regions = ["ams3", "fra1"]
       check_regions = [
         "WNAM", "ENAM", # North America
         "SSAM",         # South America
@@ -74,8 +74,8 @@ variable "region_map_values" {
       ]
     },
     {
-      # EU region
-      do_regions = ["ams3", "fra1"]
+      # North American region
+      do_regions = ["tor1", "sfo3"]
       check_regions = [
         "WNAM", "ENAM", # North America
         "SSAM",         # South America
