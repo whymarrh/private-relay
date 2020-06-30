@@ -119,6 +119,7 @@ resource "digitalocean_droplet" "private_relay_server" {
     docker_image_name = var.private_relay_docker_image_name
   })
 
+  monitoring         = true
   backups            = false
   ipv6               = false
   private_networking = true
