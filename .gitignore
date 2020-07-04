@@ -1,3 +1,4 @@
 .terraform/
 *.plan
+*.tar
 *.tfstate*
