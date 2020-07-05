@@ -35,7 +35,7 @@ This proxy is an implementation of exactly that.
 
 ### What does this mean in practice?
 
-I've deployed an example proxy for [httpbin.org](https://httpbin.org) to `relay.whymarrh.com`. You can send requests
+I've deployed an example proxy for [httpbin.org](https://httpbin.org) to `relay.privaterelay.technology`. You can send requests
 to httpbin.org through that proxy to hide your IP address from the service.
 
 httpbin.org has a [`/ip`](https://httpbin.org/ip) endpoint that will return the requester's IP address:
@@ -43,7 +43,7 @@ httpbin.org has a [`/ip`](https://httpbin.org/ip) endpoint that will return the 
 ```bash
 curl -sSL 'https://httpbin.org/ip' | jq '.origin'
 # => $ADDRESS1
-curl -sSL --connect-to httpbin.org:443:relay.whymarrh.com:443 'https://httpbin.org/ip' | jq '.origin'
+curl -sSL --connect-to httpbin.org:443:relay.privaterelay.technology:443 'https://httpbin.org/ip' | jq '.origin'
 # => $ADDRESS2
 # Note that $ADDRESS1 ≠ $ADDRESS2
 ```
