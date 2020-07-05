@@ -192,13 +192,4 @@ Resources:
   [cf-lb-billing]:https://support.cloudflare.com/hc/articles/115005254367
   [cf-traffic-steering-dynamic]:https://developers.cloudflare.com/load-balancing/understand-basics/traffic-steering/#dynamic-steering
 
----
-
-| GitHub Actions |
-| -------------: |
-| ![Test](https://github.com/whymarrh/private-relay/workflows/Test/badge.svg) |
-| ![Build & release](https://github.com/whymarrh/private-relay/workflows/Build%20&%20release/badge.svg) |
-
----
-
 This repository is available under the ISC License. See [`LICENSE.md`](./LICENSE.md).
