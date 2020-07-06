@@ -30,7 +30,7 @@ jobs:
       - name: Use Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 0.12.25
+          terraform_version: 0.12.28
       - name: Build & run HAProxy
         working-directory: proxy
         run: |
