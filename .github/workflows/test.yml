@@ -20,16 +20,13 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12
       - name: Use Terraform
         uses: hashicorp/setup-terraform@v1
         with:
