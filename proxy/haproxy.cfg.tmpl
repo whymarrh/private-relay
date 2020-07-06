@@ -1,0 +1,21 @@
+defaults
+    mode    tcp
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+
+frontend tcp_relay
+    bind 0.0.0.0:443
+    %{ for backend in backends }
+    acl ${backend.name} req.ssl_sni -i ${backend.host}
+    %{ endfor }
+    tcp-request inspect-delay 2s
+    tcp-request content reject if %{ for backend in backends } !${backend.name} %{ endfor }
+    %{ for backend in backends }
+    use_backend ${backend.name}_server if ${backend.name}
+    %{ endfor }
+
+%{ for backend in backends }
+backend ${backend.name}_server
+    server origin ${backend.host}:${backend.port}
+%{ endfor }
