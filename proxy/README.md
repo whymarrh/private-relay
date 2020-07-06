@@ -30,3 +30,9 @@ yarn test
 
 popd
 ```
+
+## Building custom HAProxy config
+
+```bash
+terraform apply -var='backends=[{"name":"google","host":"google.com","port":"443"}]'
+```
