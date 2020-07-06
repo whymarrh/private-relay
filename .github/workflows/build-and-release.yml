@@ -15,13 +15,12 @@ jobs:
       - name: Publish to Docker Hub
         working-directory: proxy
         run: |
-          docker build --build-arg PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS --tag "${GITHUB_REPOSITORY}:${TAG}" .
+          docker build --tag "${GITHUB_REPOSITORY}:${TAG}" .
           docker login --username "$( dirname $GITHUB_REPOSITORY )" --password-stdin <<< "${DOCKER_TOKEN}"
           docker push "${GITHUB_REPOSITORY}:${TAG}"
         env:
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-          TAG: 'httpbin'
-          PRIVATE_RELAY_ORIGIN_SERVER_ADDRESS: 'httpbin.org:443'
+          TAG: 'latest'
       - name: Publish to GitHub Packages
         working-directory: proxy
         run: |
