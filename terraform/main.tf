@@ -13,23 +13,28 @@ terraform {
 }
 
 variable "do_token" {
-  type = string
+  description = "The DigitalOcean API token"
+  type        = string
 }
 
 variable "cf_email" {
-  type = string
+  description = "The Cloudflare account email address"
+  type        = string
 }
 
 variable "cf_api_key" {
-  type = string
+  description = "The Cloudflare account API key"
+  type        = string
 }
 
 variable "cf_zone_id" {
-  type = string
+  description = "The Zone ID for the load balancer"
+  type        = string
 }
 
 variable "cf_lb_name" {
-  type = string
+  description = "The domain name for the load balancer"
+  type        = string
 }
 
 provider "digitalocean" {

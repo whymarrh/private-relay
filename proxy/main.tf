@@ -7,6 +7,7 @@ provider "local" {
 }
 
 variable "backends" {
+  description = "The set of backend servers for HAProxy"
   type = list(object({
     name = string
     host = string
