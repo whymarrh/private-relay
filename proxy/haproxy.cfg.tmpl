@@ -4,6 +4,19 @@ defaults
     timeout client  50000
     timeout server  50000
 
+resolvers cloudflare
+    nameserver cf1 1.1.1.1:53
+    nameserver cf2 1.0.0.1:53
+    resolve_retries      3
+    timeout resolve      1s
+    timeout retry        1s
+    hold valid          10s
+    hold obsolete        0s
+    hold refused        30s
+    hold nx             30s
+    hold timeout        30s
+    hold other          30s
+
 frontend tcp_relay
     bind 0.0.0.0:443
     %{ for backend in backends }
