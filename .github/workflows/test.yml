@@ -40,14 +40,14 @@ jobs:
           docker run --name private-relay --rm --detach --publish 8080:443 private-relay
       - name: Run cURL test for httpbin
         run: |
-          curl -isSL \
+          curl -visSL \
           --fail \
           --connect-to httpbin.org:443:127.0.0.1:8080 \
           --header 'Host: httpbin.org' \
           https://httpbin.org/anything
       - name: Run cURL test for GitHub API
         run: |
-          curl -isSL \
+          curl -visSL \
           --fail \
           --connect-to httpbin.org:443:127.0.0.1:8080 \
           --header 'Host: api.github.com' \
