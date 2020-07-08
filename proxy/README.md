@@ -5,8 +5,6 @@
 Build the HAProxy config and image:
 
 ```bash
-terraform init
-terraform apply -auto-approve # To build the HAProxy config
 docker build --tag private-relay .
 ```
 
@@ -34,5 +32,6 @@ popd
 ## Building custom HAProxy config
 
 ```bash
-terraform apply -var='backends=[{"name":"google","host":"google.com","port":"443"}]'
+TF_VAR_backends='[{"name":"google","host":"google.com","port":"443"}]'
+docker build --build-arg TF_VAR_backends' --tag private-relay .
 ```
