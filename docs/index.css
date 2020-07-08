@@ -1,0 +1,37 @@
+:root {
+    --body-bg: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --body-bg: #111;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 1.5rem;
+    background-color: var(--body-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 500px) {
+    body {
+        padding: 3rem;
+    }
+}
+
+.block {
+    display: inline-block;
+}
+
+h1 {
+    margin: 0;
+}

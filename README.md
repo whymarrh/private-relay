@@ -1,4 +1,4 @@
-[![Private Relay](./docs/images/logo.svg)](https://privaterelay.technology)
+[![Private Relay](./docs/images/logo/512x256/light.svg)](https://privaterelay.technology)
 
 A privacy-preserving TCP proxy based on Signal's [_Expanding Signal GIF search_][signal-and-giphy] article.
 
