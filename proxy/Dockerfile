@@ -16,6 +16,6 @@ COPY haproxy.cfg.tmpl .
 RUN terraform init && \
     terraform apply -auto-approve
 
-FROM haproxy:2.1
+FROM haproxy:2.2
 COPY --from=build /proxy/haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 RUN haproxy -c -f '/usr/local/etc/haproxy/haproxy.cfg'
