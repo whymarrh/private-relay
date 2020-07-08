@@ -29,7 +29,7 @@ yarn test
 popd
 ```
 
-## Building custom HAProxy config
+## Building a custom HAProxy config
 
 ```bash
 TF_VAR_backends='[{"name":"google","host":"google.com","port":"443"}]'
