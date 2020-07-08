@@ -12,15 +12,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Publish to Docker Hub
-        working-directory: proxy
-        run: |
-          docker build --tag "${GITHUB_REPOSITORY}:${TAG}" .
-          docker login --username "$( dirname $GITHUB_REPOSITORY )" --password-stdin <<< "${DOCKER_TOKEN}"
-          docker push "${GITHUB_REPOSITORY}:${TAG}"
-        env:
-          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-          TAG: 'latest'
       - name: Publish to GitHub Packages
         working-directory: proxy
         run: |
