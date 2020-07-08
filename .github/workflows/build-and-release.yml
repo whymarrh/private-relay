@@ -21,4 +21,4 @@ jobs:
         env:
           DOCKER_SERVER: docker.pkg.github.com
           DOCKER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: 'httpbin'
+          TAG: 'haproxy'
