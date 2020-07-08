@@ -25,6 +25,11 @@ variable "backends" {
       host = "httpbin.org"
       port = "443"
     },
+    {
+      name = "ipify"
+      host = "api.ipify.org"
+      port = "443"
+    },
   ]
 }
 
