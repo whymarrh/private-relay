@@ -27,15 +27,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: Use Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 0.12.28
       - name: Build & run HAProxy
         working-directory: proxy
         run: |
-          terraform init
-          terraform apply -auto-approve
           docker build --tag private-relay .
           docker run --name private-relay --rm --detach --publish 8080:443 private-relay
       - name: Run cURL test for GitHub API
