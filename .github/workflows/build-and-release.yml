@@ -12,15 +12,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Use Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 0.12.28
-      - name: Build HAProxy config
-        working-directory: proxy
-        run: |
-          terraform init
-          terraform apply -auto-approve
       - name: Publish to Docker Hub
         working-directory: proxy
         run: |
