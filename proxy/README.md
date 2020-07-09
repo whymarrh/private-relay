@@ -11,7 +11,7 @@ docker build --tag private-relay .
 To run HAProxy:
 
 ```bash
-docker run --rm --detach --publish 8080:443 private-relay
+docker run --rm --detach --publish 8080:443 --name private-relay private-relay
 ```
 
 To test the config:
