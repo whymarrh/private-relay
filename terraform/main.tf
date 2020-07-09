@@ -119,7 +119,7 @@ resource "digitalocean_droplet" "private_relay_server" {
   region = each.key
   image  = "ubuntu-20-04-x64"
   name   = "private-relay-${each.key}"
-  size   = "s-1vcpu-1gb"
+  size   = "s-2vcpu-2gb"
   ssh_keys = [
     "21:ba:db:a6:e6:f4:8f:ac:77:c9:1a:70:f1:81:a0:73"
   ]
