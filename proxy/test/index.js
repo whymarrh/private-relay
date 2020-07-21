@@ -1,7 +1,10 @@
 const { strict: assert } = require('assert');
+const baretest = require('baretest');
 const bent = require('bent');
 
 const { GITHUB_API_ENDPOINT, GITHUB_API_ENDPOINT_RELAY, HTTPBIN_ENDPOINT, HTTPBIN_ENDPOINT_RELAY } = process.env;
+
+const test = baretest('Proxy tests');
 
 test('query GitHub API via the actual GitHub endpoint', async function () {
     const headers = { 'user-agent': 'curl/7.58.0', host: 'api.github.com' };
@@ -110,3 +113,7 @@ test('PUT httpbin.org relayed', async function () {
 
     assert.deepEqual(response.json.answer, '42');
 });
+
+!(async function() {
+    await test.run()
+})()
