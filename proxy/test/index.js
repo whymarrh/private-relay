@@ -1,6 +1,6 @@
-const { strict: assert } = require('assert');
-const baretest = require('baretest');
-const bent = require('bent');
+import { strict as assert } from 'assert';
+import baretest from 'baretest';
+import bent from 'bent';
 
 const { GITHUB_API_ENDPOINT, GITHUB_API_ENDPOINT_RELAY, HTTPBIN_ENDPOINT, HTTPBIN_ENDPOINT_RELAY } = process.env;
 
@@ -114,6 +114,4 @@ test('PUT httpbin.org relayed', async function () {
     assert.deepEqual(response.json.answer, '42');
 });
 
-!(async function() {
-    await test.run()
-})()
+await test.run();

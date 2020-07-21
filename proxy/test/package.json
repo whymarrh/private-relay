@@ -1,7 +1,8 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
-    "test": "node index.js"
+    "test": "node --harmony-top-level-await index.js"
   },
   "devDependencies": {
     "baretest": "^2.0.0",
