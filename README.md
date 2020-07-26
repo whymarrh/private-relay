@@ -1,5 +1,5 @@
 <a href="https://privaterelay.technology">
-<img alt="Private Relay" src="https://privaterelay.technology/images/logo/512x256/light@2x.png" width="512" height="256">
+<img alt="Private Relay" src="https://privaterelay.technology/images/logo/512x256/light@2x.png" height="256">
 </a>
 
 A privacy-preserving TCP proxy based on Signal's [_Expanding Signal GIF search_][signal-and-giphy] article.
