@@ -1,10 +1,11 @@
 import { strict as assert } from 'assert';
-import baretest from 'baretest';
+import baretest, { Test } from 'baretest';
 import fetch from 'node-fetch';
 
 const { GITHUB_API_ENDPOINT, GITHUB_API_ENDPOINT_RELAY, HTTPBIN_ENDPOINT, HTTPBIN_ENDPOINT_RELAY } = process.env;
 
 const test = baretest('Proxy tests');
+const run = async (test: Test) => process.exit((await test.run()) ? 0 : 1);
 
 test('query GitHub API via the actual GitHub endpoint', async function () {
     const headers = { 'content-type': 'application/json', 'user-agent': 'curl/7.58.0', host: 'api.github.com' };
@@ -114,4 +115,4 @@ test('PUT httpbin.org relayed', async function () {
     assert.deepEqual(response.json.answer, '42');
 });
 
-await test.run();
+await run(test);
