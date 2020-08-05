@@ -1,1 +1,4 @@
+*.js
+*.d.ts
+*.tsbuildinfo
 node_modules/

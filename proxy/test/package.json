@@ -2,10 +2,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --harmony-top-level-await index.js"
+    "build": "tsc --project .",
+    "test": "yarn build && node --harmony-top-level-await index.js"
   },
   "devDependencies": {
+    "@types/node": "^14.0.27",
     "baretest": "^2.0.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "typescript": "^3.9.7"
   }
 }

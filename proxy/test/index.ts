@@ -9,7 +9,7 @@ const test = baretest('Proxy tests');
 test('query GitHub API via the actual GitHub endpoint', async function () {
     const headers = { 'content-type': 'application/json', 'user-agent': 'curl/7.58.0', host: 'api.github.com' };
     const body = null;
-    const r = await fetch(GITHUB_API_ENDPOINT, { headers, body });
+    const r = await fetch(GITHUB_API_ENDPOINT!, { headers, body });
     const response = await r.json();
 
     assert.ok(response.issue_search_url);
@@ -18,7 +18,7 @@ test('query GitHub API via the actual GitHub endpoint', async function () {
 test('query GitHub API via the relayed GitHub endpoint', async function () {
     const headers = { 'content-type': 'application/json', 'user-agent': 'curl/7.58.0', host: 'api.github.com' };
     const body = null;
-    const r = await fetch(GITHUB_API_ENDPOINT_RELAY, { headers, body });
+    const r = await fetch(GITHUB_API_ENDPOINT_RELAY!, { headers, body });
     const response = await r.json();
 
     assert.ok(response.issue_search_url);
