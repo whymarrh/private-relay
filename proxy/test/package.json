@@ -6,6 +6,6 @@
   },
   "devDependencies": {
     "baretest": "^2.0.0",
-    "bent": "^7.3.1"
+    "node-fetch": "^2.6.0"
   }
 }
