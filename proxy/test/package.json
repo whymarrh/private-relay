@@ -9,6 +9,6 @@
     "@types/node": "^14.0.27",
     "baretest": "^2.0.0",
     "node-fetch": "^2.6.1",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   }
 }
