@@ -1,10 +1,12 @@
 :root {
     --body-bg: #fff;
+    --color: #111;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --body-bg: #111;
+        --color: #fff;
     }
 }
 
@@ -12,14 +14,19 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px;
+}
+
 body {
-    margin: 0;
+    max-width: 60ch;
+    margin: 0 auto;
     padding: 1.5rem;
     background-color: var(--body-bg);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    color: var(--color);
+    font: 400 1rem/1.5 -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
 }
 
 @media (min-width: 500px) {
@@ -28,10 +35,20 @@ body {
     }
 }
 
-.block {
-    display: inline-block;
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
     margin: 0;
+}
+
+p {
+    text-align: left;
+}
+
+a, a:visited, a:hover {
+    color: inherit;
 }
