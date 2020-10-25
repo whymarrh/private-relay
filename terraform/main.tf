@@ -107,6 +107,10 @@ variable "region_map_values" {
   ]
 }
 
+resource "digitalocean_tag" "private_relay" {
+  name = "private-relay"
+}
+
 resource "digitalocean_floating_ip" "private_relay_server_ip" {
   for_each = toset(flatten([for cfg in var.region_map_values : cfg.do_regions]))
 
@@ -123,6 +127,9 @@ resource "digitalocean_droplet" "private_relay_server" {
   ssh_keys = [
     "21:ba:db:a6:e6:f4:8f:ac:77:c9:1a:70:f1:81:a0:73"
   ]
+  tags = [
+    digitalocean_tag.private_relay.id,
+  ]
 
   user_data = templatefile("userdata.bash", {
     docker_image_name = var.private_relay_docker_image_name
@@ -132,6 +139,67 @@ resource "digitalocean_droplet" "private_relay_server" {
   backups            = false
   ipv6               = false
   private_networking = true
+}
+
+resource "digitalocean_firewall" "private_relay_firewall" {
+  name = "private-relay-firewall"
+
+  # Droplet tags
+  tags = [
+    digitalocean_tag.private_relay.id,
+  ]
+
+  inbound_rule {
+    protocol = "icmp"
+    source_addresses = [
+      "0.0.0.0/0", # All IPv4
+      "::/0",      # All IPv6
+    ]
+  }
+
+  inbound_rule {
+    protocol   = "tcp"
+    port_range = "22"
+    source_addresses = [
+      "0.0.0.0/0", # All IPv4
+      "::/0",      # All IPv6
+    ]
+  }
+
+  inbound_rule {
+    protocol   = "tcp"
+    port_range = "443"
+    source_addresses = [
+      "0.0.0.0/0", # All IPv4
+      "::/0",      # All IPv6
+    ]
+  }
+
+  outbound_rule {
+    protocol = "icmp"
+    destination_addresses = [
+      "0.0.0.0/0", # All IPv4
+      "::/0",      # All IPv6
+    ]
+  }
+
+  outbound_rule {
+    protocol   = "tcp"
+    port_range = "1-65535"
+    destination_addresses = [
+      "0.0.0.0/0", # All IPv4
+      "::/0",      # All IPv6
+    ]
+  }
+
+  outbound_rule {
+    protocol   = "udp"
+    port_range = "1-65535"
+    destination_addresses = [
+      "0.0.0.0/0", # All IPv4
+      "::/0",      # All IPv6
+    ]
+  }
 }
 
 resource "digitalocean_floating_ip_assignment" "private_relay_server_ip_assignment" {
