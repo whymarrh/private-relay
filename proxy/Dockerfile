@@ -1,5 +1,5 @@
 FROM ubuntu:20.04 AS terraform
-ARG TERRAFORM_VERSION='0.12.28'
+ARG TERRAFORM_VERSION='0.13.5'
 WORKDIR /tmp
 RUN apt-get -qq update && \
     apt-get -qq install curl unzip > /dev/null && \
