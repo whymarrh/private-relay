@@ -20,7 +20,8 @@ add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 apt install --yes \
-    docker-ce{,-cli} \
+    docker-ce \
+    docker-ce-cli \
     containerd.io
 
 # This comes from Terraform
