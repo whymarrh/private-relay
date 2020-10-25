@@ -128,9 +128,9 @@ The individual monthly costs:
 - Cloudflare Load Balancing costs
     - $5/month base cost
     - $5/month per additional origin server ($5 × droplet count)
-    - $15/month for 15s health checks ([`cloudflare_load_balancer_monitor.simple_tcp_monitor.interval`](./terraform/main.tf))
+    - $15/month for 15s health checks ([`cloudflare_load_balancer_monitor.simple_tcp_monitor.interval`](./terraform/modules/cloudflare-digitalocean/main.tf))
     - $15 for RTTs in 8 regions
-    - $10 for latency-based traffic steering ([`cloudflare_load_balancer.private_relay_lb.steering_policy`](./terraform/main.tf))
+    - $10 for latency-based traffic steering ([`cloudflare_load_balancer.private_relay_lb.steering_policy`](./terraform/modules/cloudflare-digitalocean/main.tf))
     - $0.5 per 500,000 DNS queries
 
 The total monthly costs for the config in this repository:
