@@ -46,12 +46,10 @@ variable "cf_lb_name" {
 }
 
 provider "digitalocean" {
-  version = "~> 1.18"
-  token   = var.do_token
+  token = var.do_token
 }
 
 provider "cloudflare" {
-  version = "~> 2.7"
   email   = var.cf_email
   api_key = var.cf_api_key
 }

@@ -8,10 +8,6 @@ terraform {
   }
 }
 
-provider "local" {
-  version = "~> 1.4"
-}
-
 variable "backends" {
   description = "The set of backend servers for HAProxy"
   type = list(object({
