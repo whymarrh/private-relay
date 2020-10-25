@@ -1,56 +1,20 @@
-terraform {
-  required_version = "~> 0.13.5"
-  required_providers {
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 2.12"
-    }
-    digitalocean = {
-      source  = "digitalocean/digitalocean"
-      version = "~> 2.0"
-    }
-  }
-
-  backend "remote" {
-    organization = "www-private-relay"
-
-    workspaces {
-      name = "private-relay"
-    }
-  }
-}
-
-variable "do_token" {
-  description = "The DigitalOcean API token"
+variable "name" {
+  description = "The name for this Private Relay instance, should be unique"
   type        = string
-}
-
-variable "cf_email" {
-  description = "The Cloudflare account email address"
-  type        = string
-}
-
-variable "cf_api_key" {
-  description = "The Cloudflare account API key"
-  type        = string
-}
-
-provider "digitalocean" {
-  token = var.do_token
-}
-
-provider "cloudflare" {
-  email   = var.cf_email
-  api_key = var.cf_api_key
 }
 
 variable "cf_zone_id" {
-  description = "The Zone ID for the load balancer"
+  description = "The Zone ID for the Cloudflare load balancer"
   type        = string
 }
 
 variable "cf_lb_name" {
-  description = "The domain name for the load balancer"
+  description = "The domain name for the Cloudflare load balancer"
+  type        = string
+}
+
+variable "do_tag_name" {
+  description = "The name of the tag to use for the DigitalOcean droplets"
   type        = string
 }
 
@@ -111,13 +75,4 @@ variable "region_map_values" {
       ]
     },
   ]
-}
-
-module "private-relay" {
-  source                          = "./modules/cloudflare-digitalocean"
-  name                            = "private-relay"
-  do_tag_name                     = "private-relay"
-  cf_zone_id                      = var.cf_zone_id
-  cf_lb_name                      = var.cf_lb_name
-  private_relay_docker_image_name = var.private_relay_docker_image_name
 }
