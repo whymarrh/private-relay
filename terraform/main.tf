@@ -10,9 +10,7 @@ terraform {
       version = "~> 1.18"
     }
   }
-}
 
-terraform {
   backend "remote" {
     organization = "www-private-relay"
 
