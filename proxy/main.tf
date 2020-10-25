@@ -1,5 +1,11 @@
 terraform {
   required_version = ">= 0.12.28"
+  required_providers {
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 1.4"
+    }
+  }
 }
 
 provider "local" {
