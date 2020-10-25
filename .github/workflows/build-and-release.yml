@@ -21,13 +21,3 @@ jobs:
         env:
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
           TAG: 'latest'
-      - name: Publish to GitHub Packages
-        working-directory: proxy
-        run: |
-          docker build --tag "${DOCKER_SERVER}/${GITHUB_REPOSITORY}/${TAG}:latest" .
-          docker login --username "$( dirname $GITHUB_REPOSITORY )" --password-stdin "${DOCKER_SERVER}" <<< "${DOCKER_TOKEN}"
-          docker push "${DOCKER_SERVER}/${GITHUB_REPOSITORY}/${TAG}:latest"
-        env:
-          DOCKER_SERVER: docker.pkg.github.com
-          DOCKER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: 'haproxy'
