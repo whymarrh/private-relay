@@ -9,6 +9,17 @@ RUN apt-get -qq update && \
     unzip -q -n -d '/usr/local/bin' "terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 
 FROM haproxy:2.2-alpine
+ARG BUILD_DATE
+ARG BUILD_REVISION
+LABEL org.opencontainers.image.title="Private Relay" \
+      org.opencontainers.image.description="A privacy-preserving TCP proxy" \
+      org.opencontainers.image.url="https://privaterelay.technology" \
+      org.opencontainers.image.source="https://git.privaterelay.technology" \
+      org.opencontainers.image.documentation="https://git.privaterelay.technology" \
+      org.opencontainers.image.licenses="ISC" \
+      org.opencontainers.image.created=$BUILD_DATE \
+      org.opencontainers.image.version=$BUILD_REVISION \
+      org.opencontainers.image.revision=$BUILD_REVISION
 WORKDIR /app
 ENV CHECKPOINT_DISABLE=1
 ENV TF_INPUT=0

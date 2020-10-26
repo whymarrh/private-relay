@@ -15,7 +15,11 @@ jobs:
       - name: Publish to Docker Hub
         working-directory: proxy
         run: |
-          docker build --tag "${DOCKER_IMAGE}" .
+          docker build \
+            --build-arg "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --build-arg "BUILD_REVISION=$(git rev-parse --short "${GITHUB_SHA}")" \
+            --tag "${DOCKER_IMAGE}" \
+            .
           docker login --username "$( dirname $GITHUB_REPOSITORY )" --password-stdin <<< "${DOCKER_TOKEN}"
           docker push "${DOCKER_IMAGE}"
         env:
