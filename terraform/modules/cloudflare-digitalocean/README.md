@@ -21,7 +21,7 @@ This module requires:
 A simple usage:
 
 ```tf
-module "private-relay" {
+module "private_relay" {
   source = "https://privaterelay.technology"
 
   name                            = "private-relay"
