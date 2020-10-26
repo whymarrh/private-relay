@@ -8,14 +8,12 @@ RUN apt-get -qq update && \
     sha256sum --strict --check --ignore-missing "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     unzip -q -n -d '/usr/local/bin' "terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 
-FROM terraform as build
-ARG TF_VAR_backends
-WORKDIR /proxy
-COPY main.tf .
-COPY haproxy.cfg.tmpl .
-RUN terraform init && \
-    terraform apply -auto-approve
-
-FROM haproxy:2.2
-COPY --from=build /proxy/haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
-RUN haproxy -c -f '/usr/local/etc/haproxy/haproxy.cfg'
+FROM haproxy:2.2-alpine
+WORKDIR /app
+ENV CHECKPOINT_DISABLE=1
+ENV TF_INPUT=0
+ENV TF_IN_AUTOMATION=1
+ENV TF_LOG=
+COPY --from=terraform /usr/local/bin/terraform /usr/local/bin/terraform
+COPY . .
+RUN apk add --no-cache bash && ./build-config

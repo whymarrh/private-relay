@@ -1,0 +1,22 @@
+backends = [
+  {
+    name = "github"
+    host = "api.github.com"
+    port = "443"
+  },
+  {
+    name = "httpbin"
+    host = "httpbin.org"
+    port = "443"
+  },
+  {
+    name = "ifconfig"
+    host = "ifconfig.co"
+    port = "443"
+  },
+  {
+    name = "ipify"
+    host = "api.ipify.org"
+    port = "443"
+  },
+]
