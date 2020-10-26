@@ -4,6 +4,10 @@
 
 A privacy-preserving TCP proxy based on Signal's [_Expanding Signal GIF search_][signal-and-giphy] article.
 
+[See the image on Docker Hub →](https://hub.docker.com/r/privaterelay/privaterelay)
+
+[See the Terraform module →](./terraform/modules/cloudflare-digitalocean)
+
 This README outlines the high-level ideas, see [`CONTRIBUTING.md`](./CONTRIBUTING.md) for information about how to contribute to/build the project.
 
 - [What's the idea here?](#whats-the-idea-here)
