@@ -10,3 +10,5 @@ terraform init
 terraform apply -auto-approve
 cp haproxy.cfg "$haproxy_config"
 haproxy -c -f "$haproxy_config"
+
+rm -r .terraform terraform.tfstate
