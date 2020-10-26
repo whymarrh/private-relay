@@ -113,7 +113,7 @@ variable "region_map_values" {
   ]
 }
 
-module "private-relay" {
+module "private_relay" {
   source                          = "./modules/cloudflare-digitalocean"
   name                            = "private-relay"
   do_tag_name                     = "private-relay"
