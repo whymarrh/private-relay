@@ -15,9 +15,10 @@ jobs:
       - name: Publish to Docker Hub
         working-directory: proxy
         run: |
-          docker build --tag "${GITHUB_REPOSITORY}:${TAG}" .
+          docker build --tag "${DOCKER_IMAGE}" .
           docker login --username "$( dirname $GITHUB_REPOSITORY )" --password-stdin <<< "${DOCKER_TOKEN}"
-          docker push "${GITHUB_REPOSITORY}:${TAG}"
+          docker push "${DOCKER_IMAGE}"
         env:
+          DOCKER_IMAGE: privaterelay/privaterelay
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
           TAG: 'latest'

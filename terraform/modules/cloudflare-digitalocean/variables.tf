@@ -21,6 +21,7 @@ variable "do_tag_name" {
 variable "private_relay_docker_image_name" {
   description = "The publicly-accessible Docker image name to run on each server"
   type        = string
+  default     = "privaterelay/privaterelay"
 }
 
 variable "region_map_keys" {

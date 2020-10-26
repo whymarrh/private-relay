@@ -1,37 +1,62 @@
-# HAProxy config
+<a href="https://privaterelay.technology">
+<img alt="Private Relay" src="https://privaterelay.technology/images/logo/512x256/light@2x.png" width="512px">
+</a>
 
-## Quick start
+Private Relay is a privacy-preserving TCP proxy—essentially [HAProxy][haproxy] in `mode tcp`—that facilitates IP anonymization when routing multiple clients traffic through it.
 
-Build the HAProxy config and image:
+[See the GitHub repository for more context →](https://git.privaterelay.technology)
+
+As a quick example of the functionality, `relay.privaterelay.technology` runs this image with the default config:
 
 ```bash
-docker build --tag private-relay .
+curl -sSL 'https://httpbin.org/ip' | jq '.origin'
+# => $ADDRESS1
+curl -sSL --connect-to httpbin.org:443:relay.privaterelay.technology:443 'https://httpbin.org/ip' | jq '.origin'
+# => $ADDRESS2
 ```
 
-To run HAProxy:
+Note that `$ADDRESS1` ≠ `$ADDRESS2`. 🥳
+
+## How to use this image
+
+This image is the base `haproxy` image with a custom config—[please see the upstream documentation as well](https://hub.docker.com/_/haproxy).
+
+1️⃣ Create a `terraform.tfvars` file with a set of backend servers:
+
+```tf
+backends = [
+  {
+    name = "example"
+    host = "example.com"
+    port = "443"
+  },
+]
+```
+
+Note: this is [HCL][]. [You can also use JSON by creating a `terraform.tfvars.json` file instead.][1]
+
+2️⃣ Use this as a base image, `COPY terraform.tfvars /app/`, and `RUN /app/build-config`:
+
+```Dockerfile
+FROM privaterelay/privaterelay
+COPY terraform.tfvars /app/
+RUN /app/build-config
+```
+
+Terraform generates the config file from the set of backends specified.
+
+3️⃣ Start your container:
 
 ```bash
 docker run --rm --detach --publish 8080:443 --name private-relay private-relay
 ```
 
-To test the config:
+HAProxy is now running on the host's `:8080`.
 
-```
-pushd test/
-yarn
+## License
 
-GITHUB_API_ENDPOINT='https://api.github.com' \
-GITHUB_API_ENDPOINT_RELAY="https://127.0.0.1:8080" \
-HTTPBIN_ENDPOINT="https://httpbin.org" \
-HTTPBIN_ENDPOINT_RELAY="https://127.0.0.1:8080" \
-yarn test
+[View license information for this image.](https://git.privaterelay.technology/blob/master/LICENSE.md)
 
-popd
-```
-
-## Building a custom HAProxy config
-
-```bash
-TF_VAR_backends='[{"name":"google","host":"google.com","port":"443"}]'
-docker build --build-arg TF_VAR_backends' --tag private-relay .
-```
+  [1]:https://www.terraform.io/docs/configuration/variables.html#variable-definitions-tfvars-files
+  [HCL]:https://github.com/hashicorp/hcl
+  [haproxy]:https://www.haproxy.org
