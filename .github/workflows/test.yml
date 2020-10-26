@@ -17,6 +17,21 @@ jobs:
       - name: Check *.tf
         run: |
           terraform fmt -check -recursive
+  validate:
+    name: tf validate
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.5
+      - name: Validate Terraform files
+        working-directory: terraform
+        run: |
+          terraform init -backend=false
+          terraform validate
   tests:
     name: Tests
     runs-on: ubuntu-20.04
