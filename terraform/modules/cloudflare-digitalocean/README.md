@@ -29,13 +29,13 @@ module "private_relay" {
   cf_zone_id                      = "fh7eew2xxxxxxx98fdx2fh7eew2xxxxx"
   cf_lb_name                      = "relay.example.com"
   private_relay_docker_image_name = "org/custom-private-relay-backends"
-  region_map_keys = [
-    "eu",
-  ]
-  region_map_values = [
+  origin_pools = [
+    # EU region
     {
-      # EU region
+      name = "eu"
+      # Backed by these DigitalOcean regions
       do_regions = ["ams3", "fra1"]
+      # RTT-tested from these regions
       check_regions = [
         "WNAM", "ENAM", # North America
         "SSAM",         # South America

@@ -68,15 +68,17 @@ module "private_relay" {
   private_relay_docker_image_name = var.private_relay_docker_image_name
 
   # A single Asia-Pacific region with a single droplet
-  region_map_keys = ["ap"]
-  region_map_values = [{
-    do_regions = ["sgp1"]
-    check_regions = [
-      "WNAM", "ENAM", # North America
-      "SSAM",         # South America
-      "OC",           # Oceania
-      "WEU", "EEU",   # Europe
-      "SEAS", "NEAS", # Asia
-    ]
-  }]
+  origin_pools = [
+    {
+      name       = "ap"
+      do_regions = ["sgp1"]
+      check_regions = [
+        "WNAM", "ENAM", # North America
+        "SSAM",         # South America
+        "OC",           # Oceania
+        "WEU", "EEU",   # Europe
+        "SEAS", "NEAS", # Asia
+      ]
+    },
+  ]
 }
