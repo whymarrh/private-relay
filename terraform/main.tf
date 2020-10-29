@@ -67,6 +67,10 @@ module "private_relay" {
   cf_lb_name                      = var.cf_lb_name
   private_relay_docker_image_name = var.private_relay_docker_image_name
 
+  do_droplet_ssh_keys = [
+    "21:ba:db:a6:e6:f4:8f:ac:77:c9:1a:70:f1:81:a0:73"
+  ]
+
   # A single Asia-Pacific region with a single droplet
   origin_pools = [
     {

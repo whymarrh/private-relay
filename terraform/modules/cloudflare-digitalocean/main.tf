@@ -25,13 +25,11 @@ resource "digitalocean_floating_ip" "private_relay_server_ip" {
 resource "digitalocean_droplet" "private_relay_server" {
   for_each = toset(flatten([for pool in var.origin_pools : pool.do_regions]))
 
-  region = each.key
-  image  = "ubuntu-20-04-x64"
-  name   = "${var.name}-${each.key}"
-  size   = var.do_droplet_size
-  ssh_keys = [
-    "21:ba:db:a6:e6:f4:8f:ac:77:c9:1a:70:f1:81:a0:73"
-  ]
+  region   = each.key
+  image    = "ubuntu-20-04-x64"
+  name     = "${var.name}-${each.key}"
+  size     = var.do_droplet_size
+  ssh_keys = var.do_droplet_ssh_keys
   tags = [
     digitalocean_tag.private_relay.id,
   ]

@@ -24,6 +24,12 @@ variable "do_droplet_size" {
   default     = "s-1vcpu-1gb"
 }
 
+variable "do_droplet_ssh_keys" {
+  description = "A list of SSH IDs or fingerprints to authorize for the droplets"
+  type        = list(string)
+  default     = []
+}
+
 variable "private_relay_docker_image_name" {
   description = "The publicly-accessible Docker image name to run on each server"
   type        = string
