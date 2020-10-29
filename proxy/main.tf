@@ -15,6 +15,21 @@ variable "backends" {
     host = string
     port = string
   }))
+
+  validation {
+    condition     = length(var.backends) > 0
+    error_message = "The set of backends must be non-empty."
+  }
+
+  validation {
+    condition     = length([for backend in var.backends : backend.name]) == length(distinct([for backend in var.backends : backend.name]))
+    error_message = "The set of backends must have unique names."
+  }
+
+  validation {
+    condition     = length([for backend in var.backends : backend.host]) == length(distinct([for backend in var.backends : backend.host]))
+    error_message = "The set of backends must have unique hosts."
+  }
 }
 
 resource "local_file" "haproxy_config" {
