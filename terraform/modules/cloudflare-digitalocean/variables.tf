@@ -18,6 +18,12 @@ variable "do_tag_name" {
   type        = string
 }
 
+variable "do_droplet_size" {
+  description = "The size of the DigitalOcean Droplet to create"
+  type        = string
+  default     = "s-1vcpu-1gb"
+}
+
 variable "private_relay_docker_image_name" {
   description = "The publicly-accessible Docker image name to run on each server"
   type        = string
