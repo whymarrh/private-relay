@@ -17,13 +17,13 @@ resource "digitalocean_tag" "private_relay" {
 }
 
 resource "digitalocean_floating_ip" "private_relay_server_ip" {
-  for_each = toset(flatten([for cfg in var.region_map_values : cfg.do_regions]))
+  for_each = toset(flatten([for pool in var.origin_pools : pool.do_regions]))
 
   region = each.key
 }
 
 resource "digitalocean_droplet" "private_relay_server" {
-  for_each = toset(flatten([for cfg in var.region_map_values : cfg.do_regions]))
+  for_each = toset(flatten([for pool in var.origin_pools : pool.do_regions]))
 
   region = each.key
   image  = "ubuntu-20-04-x64"
@@ -108,7 +108,7 @@ resource "digitalocean_firewall" "private_relay_firewall" {
 }
 
 resource "digitalocean_floating_ip_assignment" "private_relay_server_ip_assignment" {
-  for_each = toset(flatten([for cfg in var.region_map_values : cfg.do_regions]))
+  for_each = toset(flatten([for pool in var.origin_pools : pool.do_regions]))
 
   ip_address = digitalocean_floating_ip.private_relay_server_ip[each.key].id
   droplet_id = digitalocean_droplet.private_relay_server[each.key].id
@@ -125,7 +125,10 @@ resource "cloudflare_load_balancer_monitor" "simple_tcp_monitor" {
 }
 
 resource "cloudflare_load_balancer_pool" "private_relay_server_pool" {
-  for_each = zipmap(var.region_map_keys, var.region_map_values)
+  for_each = zipmap(
+    [for pool in var.origin_pools : pool.name],
+    [for pool in var.origin_pools : pool],
+  )
 
   name            = each.key
   description     = "Regional load balancer pool"
@@ -151,8 +154,16 @@ resource "cloudflare_load_balancer" "private_relay_lb" {
   name        = var.cf_lb_name
   description = "Load balancer with Dynamic Steering"
 
-  ttl              = 30
-  default_pool_ids = [for k in var.region_map_keys : cloudflare_load_balancer_pool.private_relay_server_pool[k].id]
-  fallback_pool_id = cloudflare_load_balancer_pool.private_relay_server_pool[var.region_map_keys[0]].id
+  ttl = 30
+  # A list of Pool IDs ordered by failover priority. Cloudflare steers traffic to the first pool in the list,
+  # failing over to the next healthy pool and so on down the list. This is used instead of `region_pools` or
+  # `pop_pools` to allow Dynamic Steering to use its Round Trip Time (RTT) profiles to determine the fastest pool.
+  default_pool_ids = [
+    for pool in var.origin_pools :
+    cloudflare_load_balancer_pool.private_relay_server_pool[pool.name].id
+  ]
+  # The Pool ID for the "pool of last resort," the pool the load balancer should direct traffic to
+  # if all other pools are unhealthy. Here we're falling back to the first/0th pool provided.
+  fallback_pool_id = cloudflare_load_balancer_pool.private_relay_server_pool[var.origin_pools[0].name].id
   steering_policy  = "dynamic_latency"
 }

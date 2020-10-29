@@ -24,8 +24,15 @@ variable "private_relay_docker_image_name" {
   default     = "privaterelay/privaterelay"
 }
 
-variable "region_map_keys" {
-  description = "The set of Cloudflare origin pool regions"
+variable "origin_pools" {
+  description = "The set of Cloudflare origin pool regions and their corresponding DigitalOcean regions and checks"
+  type = list(
+    object({
+      name          = string
+      do_regions    = list(string)
+      check_regions = list(string)
+    })
+  )
 
   # The ordering of the pools in the load balancer determines the order in
   # which pools in the load balancer will fail over. When the number of
@@ -33,18 +40,12 @@ variable "region_map_keys" {
   # Cloudflare will send traffic to the next available pool - e.g. traffic
   # will always land on Pool #1 until it is marked unhealthy.
   default = [
-    "eu",
-    "na",
-    "ap",
-  ]
-}
-
-variable "region_map_values" {
-  description = "The set of supported regions"
-  default = [
+    # EU region
     {
-      # EU region
+      name = "eu"
+      # Backed by these DigitalOcean regions
       do_regions = ["ams3", "fra1"]
+      # RTT-tested from these regions
       check_regions = [
         "WNAM", "ENAM", # North America
         "SSAM",         # South America
@@ -53,9 +54,12 @@ variable "region_map_values" {
         "SEAS", "NEAS", # Asia
       ]
     },
+    # North American region
     {
-      # North American region
+      name = "na"
+      # Backed by these DigitalOcean regions
       do_regions = ["tor1", "sfo3"]
+      # RTT-tested from these regions
       check_regions = [
         "WNAM", "ENAM", # North America
         "SSAM",         # South America
@@ -64,9 +68,12 @@ variable "region_map_values" {
         "SEAS", "NEAS", # Asia
       ]
     },
+    # Asia-Pacific region
     {
-      # Asia-Pacific region
+      name = "ap"
+      # Backed by these DigitalOcean regions
       do_regions = ["sgp1"]
+      # RTT-tested from these regions
       check_regions = [
         "WNAM", "ENAM", # North America
         "SSAM",         # South America
@@ -76,4 +83,36 @@ variable "region_map_values" {
       ]
     },
   ]
+
+  validation {
+    condition     = length(var.origin_pools) > 0
+    error_message = "Cloudflare origin pool list must be non-empty."
+  }
+
+  validation {
+    condition = (
+      length(var.origin_pools) == length(distinct([for pool in var.origin_pools : pool.name]))
+    )
+    error_message = "Cloudflare origin pool names must be unique."
+  }
+
+  validation {
+    condition = (
+      ! contains(
+        [for pool in var.origin_pools : (length(pool.check_regions) == length(distinct(pool.check_regions)))],
+        false,
+      )
+    )
+    error_message = "Each set of check_regions must not contain duplicates."
+  }
+
+  validation {
+    condition = (
+      ! contains(
+        [for pool in var.origin_pools : can(regex("^[a-zA-Z0-9-_]+$", pool.name))],
+        false,
+      )
+    )
+    error_message = "Only alphanumeric characters, hyphens and underscores are allowed in origin pool names."
+  }
 }
