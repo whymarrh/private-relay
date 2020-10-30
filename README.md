@@ -192,7 +192,7 @@ Resources:
   [signal-and-giphy]:https://signal.org/blog/signal-and-giphy-update/
   [signal-and-giphy-wayback]:https://web.archive.org/web/20200524203345/https://signal.org/blog/signal-and-giphy-update/
   [haproxy-tls-passthrough]:https://user-images.githubusercontent.com/1623628/82765015-cd931580-9ded-11ea-8fd3-8f0dead2e829.png
-  [haproxy-tls-passthrough-docs]:https://www.haproxy.com/documentation/haproxy/deployment-guides/tls-infrastructure/#ssl-tls-pass-through
+  [haproxy-tls-passthrough-docs]:https://www.haproxy.com/documentation/hapee/latest/deployment-guides/tls-infrastructure/#ssl-tls-pass-through
   [curl---connect-to]:https://curl.haxx.se/docs/manpage.html#--connect-to
   [do-bandwidth-calculator]:https://www.digitalocean.com/community/tools/bandwidth
   [cf-lb-billing]:https://support.cloudflare.com/hc/articles/115005254367
