@@ -110,7 +110,7 @@ variable "origin_pools" {
 
   validation {
     condition = (
-      ! contains(
+      !contains(
         [for pool in var.origin_pools : (length(pool.check_regions) == length(distinct(pool.check_regions)))],
         false,
       )
@@ -120,7 +120,7 @@ variable "origin_pools" {
 
   validation {
     condition = (
-      ! contains(
+      !contains(
         [for pool in var.origin_pools : can(regex("^[a-zA-Z0-9-_]+$", pool.name))],
         false,
       )

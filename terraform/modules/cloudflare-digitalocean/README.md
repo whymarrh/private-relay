@@ -12,7 +12,7 @@ This module allows you to run a Private Relay on a set of DigitalOcean droplets 
 
 This module requires:
 
-- ✅ Terraform 0.13 or newer
+- ✅ Terraform 0.14.x
 - ✅ [A Cloudflare account](https://dash.cloudflare.com/)
 - ✅ [A DigitalOcean account](https://cloud.digitalocean.com/)
 
