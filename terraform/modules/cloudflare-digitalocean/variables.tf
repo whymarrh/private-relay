@@ -111,6 +111,16 @@ variable "origin_pools" {
   validation {
     condition = (
       !contains(
+        [for pool in var.origin_pools : (length(pool.do_regions) > 0)],
+        false,
+      )
+    )
+    error_message = "Each origin pool must have nonzero do_regions."
+  }
+
+  validation {
+    condition = (
+      !contains(
         [for pool in var.origin_pools : (length(pool.check_regions) == length(distinct(pool.check_regions)))],
         false,
       )
