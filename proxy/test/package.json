@@ -1,6 +1,9 @@
 {
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "build": "tsc --project .",
     "test": "yarn build && node --harmony-top-level-await index.js"
