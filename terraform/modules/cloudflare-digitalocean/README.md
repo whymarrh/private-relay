@@ -48,6 +48,8 @@ module "private_relay" {
 }
 ```
 
+Note: if a configuration includes a single `do_region` in a single pool, a DNS A record will be created instead of a load balancer. This is only useful for test/demo environments.
+
 ## License
 
 [View license information for this module.](./LICENSE.md)
