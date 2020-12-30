@@ -51,7 +51,7 @@ jobs:
         run: |
           curl -visSL \
           --fail \
-          --connect-to httpbin.org:443:127.0.0.1:8080 \
+          --connect-to api.github.com:443:127.0.0.1:8080 \
           --header 'Host: api.github.com' \
           https://api.github.com
       - name: Run tests
