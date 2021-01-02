@@ -1,6 +1,2 @@
 *
-!*.tfvars
-!build-config
-!main.tf
-!haproxy.cfg
-!haproxy.cfg.tmpl
+!haproxy.cfg.*
