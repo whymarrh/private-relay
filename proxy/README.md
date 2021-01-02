@@ -21,29 +21,21 @@ Note that `$ADDRESS1` ≠ `$ADDRESS2`. 🥳
 
 This image is the base `haproxy` image with a custom config—[please see the upstream documentation as well](https://hub.docker.com/_/haproxy).
 
-1️⃣ Create a `terraform.tfvars` file with a set of backend servers:
+1️⃣ Create a `backends.yaml` file with a set of backend servers:
 
-```tf
-backends = [
-  {
-    name = "example"
-    host = "example.com"
-    port = "443"
-  },
-]
+```yml
+backends:
+- name: httpbin
+  host: httpbin.org
+  port: 443
 ```
 
-Note: this is [HCL][]. [You can also use JSON by creating a `terraform.tfvars.json` file instead.][1]
-
-2️⃣ Use this as a base image, `COPY terraform.tfvars /app/`, and `RUN /app/build-config`:
+2️⃣ Use this as a base image, `COPY backends.yaml /app/`, running `templatefile` to generate the config:
 
 ```Dockerfile
 FROM privaterelay/privaterelay
-COPY terraform.tfvars /app/
-RUN /app/build-config
+RUN templatefile /app/haproxy.cfg.tmpl /app/backends.yaml > /usr/local/etc/haproxy/haproxy.cfg
 ```
-
-Terraform generates the config file from the set of backends specified.
 
 3️⃣ Start your container:
 
@@ -58,5 +50,4 @@ HAProxy is now running on the host's `:8080`.
 [View license information for this image.](https://git.privaterelay.technology/blob/master/LICENSE.md)
 
   [1]:https://www.terraform.io/docs/configuration/variables.html#variable-definitions-tfvars-files
-  [HCL]:https://github.com/hashicorp/hcl
   [haproxy]:https://www.haproxy.org
