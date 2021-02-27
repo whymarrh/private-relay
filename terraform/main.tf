@@ -75,7 +75,7 @@ module "private_relay" {
   origin_pools = [
     {
       name       = "ap"
-      do_regions = ["sgp1"]
+      do_regions = ["blr1"]
       check_regions = [
         "WNAM", "ENAM", # North America
         "SSAM",         # South America
