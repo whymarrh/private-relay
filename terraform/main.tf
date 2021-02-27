@@ -68,7 +68,7 @@ module "private_relay" {
   private_relay_docker_image_name = var.private_relay_docker_image_name
 
   do_droplet_ssh_keys = [
-    "21:ba:db:a6:e6:f4:8f:ac:77:c9:1a:70:f1:81:a0:73"
+    "a8:d9:d8:54:04:18:77:63:73:0e:1f:e4:52:84:6b:6f"
   ]
 
   # A single Asia-Pacific region with a single droplet
