@@ -9,7 +9,7 @@
     "test": "yarn build && node --harmony-top-level-await index.js"
   },
   "devDependencies": {
-    "@types/node": "^16.9.6",
+    "@types/node": "^16.11.2",
     "baretest": "^2.0.0",
     "node-fetch": "^2.6.1",
     "typescript": "^4.4.3"
