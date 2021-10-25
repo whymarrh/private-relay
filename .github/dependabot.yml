@@ -4,5 +4,5 @@ updates:
   - package-ecosystem: "npm"
     directory: "/proxy/test/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     labels: [ ]
