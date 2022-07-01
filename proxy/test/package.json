@@ -11,7 +11,7 @@
   "devDependencies": {
     "@types/node": "^16.11.26",
     "baretest": "^2.0.0",
-    "node-fetch": "^3.2.3",
+    "node-fetch": "^3.2.6",
     "typescript": "^4.6.3"
   }
 }
