@@ -41,7 +41,7 @@ This proxy is an implementation of exactly that.
 
 ### What does this mean in practice?
 
-I've deployed an example proxy for [httpbin.org](https://httpbin.org) to `relay.privaterelay.technology`. You can send requests
+***If you deployed*** an example proxy for [httpbin.org](https://httpbin.org) to `relay.privaterelay.technology`. You could send requests
 to httpbin.org through that proxy to hide your IP address from the service.
 
 httpbin.org has a [`/ip`](https://httpbin.org/ip) endpoint that will return the requester's IP address:
